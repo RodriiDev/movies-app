@@ -11,15 +11,16 @@ export default function Show() {
 
                 console.log("Data");
                 console.log(edges);
-                
-
-                /* const moviesData = edges.map(edge => {
+                const moviesData = edges.map(edge => {
                     const entity = edge.node.entity 
                     return {
-                        title: entity.titleText
-                    }
-                })
-                setMovies(moviesData) */
+                        title: entity.nameText.text,
+                        imageUrl: entity.primaryImage?.url,
+                        year: entity.releaseDate?.year,
+                        imdbLink: `https://wwww.imdb.com/title/${entity.id}`,
+                    };
+                });
+                setMovies(moviesData)
             } catch (error) {
                 console.log('Error fetching data: ', error)
             }

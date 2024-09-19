@@ -15,9 +15,11 @@ export const fetchData  = async () => {
             throw new Error(`HTTP Error. Status ${response.status}`)
         }
         const result = await response.json();
-        console.log(result);
+        return result.data.mainSearch.edges
+        
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching data: ',error);
+        throw error;
     }
 
 };
