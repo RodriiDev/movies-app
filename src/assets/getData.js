@@ -1,11 +1,11 @@
 export const fetchData  = async () => {
 
-    const url = 'https://imdb8.p.rapidapi.com/v2/search?searchTerm=deadpool&type=NAME&first=10&country=US&language=en-US';
+    const url = 'https://movies-api14.p.rapidapi.com/movies';
     const options = {
         method: 'GET',
         headers: {
             'x-rapidapi-key': '1f9c1c3cd3msh31b5cd8178d5716p10ea80jsnb717c67f984e',
-		    'x-rapidapi-host': 'imdb8.p.rapidapi.com'
+            'x-rapidapi-host': 'movies-api14.p.rapidapi.com'
         }
     };
 
@@ -15,11 +15,10 @@ export const fetchData  = async () => {
             throw new Error(`HTTP Error. Status ${response.status}`)
         }
         const result = await response.json();
-        return result.data.mainSearch.edges
-        
+        return result;
     } catch (error) {
         console.error('Error fetching data: ',error);
-        throw error;
+        throw error;    
     }
 
 };

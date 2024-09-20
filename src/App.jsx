@@ -1,14 +1,12 @@
-import { useState } from 'react'
-import './App.css'
 import Show from './components/Show'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <Show />
+      <div className="bg-white">
+        <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-4 lg:max-w-7xl lg:px-8">
+          <Show />
+        </div>
       </div>
       
     </>
