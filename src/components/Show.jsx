@@ -3,7 +3,9 @@ import Card from "./Card";
 import { fetchData } from "../assets/getData";
 
 export default function Show() {
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState([]);
+    const [search, setSearch] = useState("");
+    
     useEffect(() => {
         const getMovies = async () => {
             try{
@@ -14,7 +16,7 @@ export default function Show() {
 
                 const moviesData = dataResult.movies.map((movie) => {
                     return {
-                        title: movie.title,
+                        title: movie?.title || "Untitled",
                         imageUrl: movie?.poster_path,
                         year: movie?.release_date,
                         genres: movie?.genres,
@@ -29,21 +31,38 @@ export default function Show() {
         getMovies();
     }, [])
 
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value)
+    }
+
+    const filteredMovies = movies.filter(movie =>
+        movie.title.toLowerCase().includes(search.toLowerCase()) || 
+        ( movie.year && movie.year.toString().includes(search) )
+    )
+
   return (
     <div>
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 text-center">Movies</h1>
+      <div class="text-center">
+        <input type="text" placeholder="Search Movies..." value={search} onChange={handleSearchChange} />
+      </div>
       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      {
-        movies.map((movie,index) => (
-            <Card 
-                key={index}
-                title={movie.title}
-                imageUrl={movie.imageUrl}
-                year={movie.year}
-                genres={movie.genres}
-            />
-        ))
-      }
+        { filteredMovies.length > 0 ? (
+      
+            filteredMovies.map((movie,index) => (
+                <Card 
+                    key={index}
+                    title={movie.title}
+                    imageUrl={movie.imageUrl}
+                    year={movie.year}
+                    genres={movie.genres}
+                />
+            ))
+
+            ) : (
+                <p>No movies found</p>
+            )
+        }
       </div>
     </div>
   )
