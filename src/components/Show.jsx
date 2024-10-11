@@ -5,7 +5,7 @@ import { fetchData } from "../assets/getData";
 export default function Show() {
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState("");
-    
+
     useEffect(() => {
         const getMovies = async () => {
             try{
@@ -23,7 +23,9 @@ export default function Show() {
                     };
                 });
 
-                setMovies(moviesData)
+                const moviesData2 = moviesData.slice(0, 20);
+
+                setMovies(moviesData2)
             } catch (error) {
                 console.log('Error fetching data: ', error)
             }
@@ -43,8 +45,8 @@ export default function Show() {
   return (
     <div>
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 text-center">Movies</h1>
-      <div class="text-center mt-3">
-        <input class="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" placeholder="Search Movies..." value={search} onChange={handleSearchChange} />
+      <div className="text-center mt-3">
+        <input className="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" placeholder="Search Movies..." value={search} onChange={handleSearchChange} />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         { filteredMovies.length > 0 ? (
